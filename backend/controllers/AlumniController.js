@@ -5,8 +5,16 @@ export const getAllAlumni = async (req, res) => {
   const alumni = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   res.send(alumni);
 };
+
+export const getVerifiedAlumni = async (req, res) => {
+  const snapshot = await Alumni.get();
+  const alumni = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const response = alumni.filter((u) => u.isVerified === true);
+  res.send(response);
+};
 export const createAlumni = async (req, res) => {
   const data = req.body;
+
   data.isVerified = false;
   console.log(data);
   await Alumni.add(data);

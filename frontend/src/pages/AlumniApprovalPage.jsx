@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 const AlumniApprovalPage = () => {
   const [alumni, setAlumni] = useState([]);
   const [verified, setVerified] = useState(false);
-  const [rejected, setRejected] = useState(false);
+  // const [rejected, setRejected] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getAlumni = async () => {
-      const alumni = await axios.get(import.meta.env.VITE_BASE_URL + "alumni/");
-      setAlumni(
-        alumni.data.filter(
-          (alumnus) => alumnus.verified !== undefined && !alumnus.verified
-        )
+      const alumni = await axios.get(
+        import.meta.env.VITE_BASE_URL + "alumni/all"
       );
+      console.log(
+        alumni.data.filter((alumnus) => alumnus.isVerified === false)
+      );
+      setAlumni(alumni.data.filter((alumnus) => alumnus.isVerified === false));
     };
     const verifyAdmin = async () => {
       const email = localStorage.getItem("email");
@@ -34,36 +35,39 @@ const AlumniApprovalPage = () => {
     };
     verifyAdmin();
     getAlumni();
-  }, [verified, rejected]);
+  }, [verified]);
 
   const handleAccept = async (id) => {
+    setVerified(true);
+
     const res = await axios.post(
       import.meta.env.VITE_BASE_URL + "alumni/update",
       {
         id,
-        verified: true,
+        isVerified: true,
       }
     );
+    setVerified(false);
+
     console.log(res);
-    setVerified(true);
   };
 
-  const handleReject = async (id) => {
-    const res = await axios.post(
-      import.meta.env.VITE_BASE_URL + "alumni/update",
-      {
-        id,
-        verified: false,
-      }
-    );
-    console.log(res);
-    setRejected(true);
-  };
+  // const handleReject = async (id) => {
+  //   const res = await axios.post(
+  //     import.meta.env.VITE_BASE_URL + "alumni/update",
+  //     {
+  //       id,
+  //       verified: false,
+  //     }
+  //   );
+  //   console.log(res);
+  //   setRejected(true);
+  // };
 
   return (
     <div className="flex flex-col min-h-dvh">
       <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 bg-primary text-primary-foreground">
-        <Link href="#" className="flex items-center" prefetch={false}>
+        <Link href="#" className="flex items-center">
           <MountainIcon className="h-6 w-6" />
           <span className="sr-only">Alumni Portal</span>
         </Link>
@@ -71,28 +75,24 @@ const AlumniApprovalPage = () => {
           <Link
             href="#"
             className="text-sm font-medium hover:underline underline-offset-4"
-            prefetch={false}
           >
             Alumni
           </Link>
           <Link
             href="#"
             className="text-sm font-medium hover:underline underline-offset-4"
-            prefetch={false}
           >
             Events
           </Link>
           <Link
             href="#"
             className="text-sm font-medium hover:underline underline-offset-4"
-            prefetch={false}
           >
             About
           </Link>
           <Link
             href="#"
             className="text-sm font-medium hover:underline underline-offset-4"
-            prefetch={false}
           >
             Contact
           </Link>
@@ -120,14 +120,14 @@ const AlumniApprovalPage = () => {
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    <Button
+                    {/*<Button
                       className="bg-destructive"
                       variant="outline"
                       size="sm"
                       onClick={() => handleReject(alumnus.id)}
                     >
                       Reject
-                    </Button>
+                    </Button>*/}
 
                     <Button
                       className="bg-primary"
@@ -148,78 +148,38 @@ const AlumniApprovalPage = () => {
         <div className="container max-w-7xl grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 text-sm">
           <div className="grid gap-1">
             <h3 className="font-semibold">Alumni</h3>
-            <Link href="#" prefetch={false}>
-              Profiles
-            </Link>
-            <Link href="#" prefetch={false}>
-              Events
-            </Link>
-            <Link href="#" prefetch={false}>
-              Mentorship
-            </Link>
-            <Link href="#" prefetch={false}>
-              Donate
-            </Link>
+            <Link href="#">Profiles</Link>
+            <Link href="#">Events</Link>
+            <Link href="#">Mentorship</Link>
+            <Link href="#">Donate</Link>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold">About</h3>
-            <Link href="#" prefetch={false}>
-              Our Mission
-            </Link>
-            <Link href="#" prefetch={false}>
-              History
-            </Link>
-            <Link href="#" prefetch={false}>
-              Team
-            </Link>
-            <Link href="#" prefetch={false}>
-              Contact
-            </Link>
+            <Link href="#">Our Mission</Link>
+            <Link href="#">History</Link>
+            <Link href="#">Team</Link>
+            <Link href="#">Contact</Link>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold">Resources</h3>
-            <Link href="#" prefetch={false}>
-              Blog
-            </Link>
-            <Link href="#" prefetch={false}>
-              FAQs
-            </Link>
-            <Link href="#" prefetch={false}>
-              Policies
-            </Link>
-            <Link href="#" prefetch={false}>
-              Careers
-            </Link>
+            <Link href="#">Blog</Link>
+            <Link href="#">FAQs</Link>
+            <Link href="#">Policies</Link>
+            <Link href="#">Careers</Link>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold">Connect</h3>
-            <Link href="#" prefetch={false}>
-              LinkedIn
-            </Link>
-            <Link href="#" prefetch={false}>
-              Twitter
-            </Link>
-            <Link href="#" prefetch={false}>
-              Instagram
-            </Link>
-            <Link href="#" prefetch={false}>
-              Facebook
-            </Link>
+            <Link href="#">LinkedIn</Link>
+            <Link href="#">Twitter</Link>
+            <Link href="#">Instagram</Link>
+            <Link href="#">Facebook</Link>
           </div>
           <div className="grid gap-1">
             <h3 className="font-semibold">Legal</h3>
-            <Link href="#" prefetch={false}>
-              Privacy Policy
-            </Link>
-            <Link href="#" prefetch={false}>
-              Terms of Service
-            </Link>
-            <Link href="#" prefetch={false}>
-              Cookie Policy
-            </Link>
-            <Link href="#" prefetch={false}>
-              Accessibility
-            </Link>
+            <Link href="#">Privacy Policy</Link>
+            <Link href="#">Terms of Service</Link>
+            <Link href="#">Cookie Policy</Link>
+            <Link href="#">Accessibility</Link>
           </div>
         </div>
       </footer>

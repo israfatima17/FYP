@@ -1,6 +1,17 @@
-import { Button, Card, Label, TextInput, Textarea } from "flowbite-react";
+import {
+  Button,
+  Card,
+  Label,
+  TextInput,
+  Textarea,
+  FileInput,
+} from "flowbite-react";
 import { useState } from "react";
 import axios from "axios";
+import { imageDb } from "../firebase/ImgDB";
+import { useEffect } from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { v4 } from "uuid";
 
 const UpdateProfile = () => {
   const [name, setName] = useState("");
@@ -11,6 +22,20 @@ const UpdateProfile = () => {
   const [about, setAbout] = useState("");
   const [achievements, setAchievements] = useState("");
   const [updating, setUpdating] = useState(false);
+  const [img, setImg] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
+
+  const updateImg = async () => {
+    if (img !== null) {
+      setUploading(true);
+      const imgRef = ref(imageDb, `files/${v4()}`);
+      const result = await uploadBytes(imgRef, img);
+      const link = await getDownloadURL(result.ref);
+      console.log(link);
+      setImgUrl(link);
+    }
+  };
 
   const handleUpdate = async () => {
     // trim all use states
@@ -22,6 +47,8 @@ const UpdateProfile = () => {
     setDepartment(department.trim());
     setAbout(about.trim());
     setAchievements(achievements.trim());
+
+    updateImg();
 
     if (
       name !== null &&
@@ -48,7 +75,19 @@ const UpdateProfile = () => {
         }
       );
 
-      if (id) {
+      if (id && imgUrl !== "") {
+        await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
+          id: id.data.id,
+          name,
+          designation,
+          batch,
+          rollNumber,
+          department,
+          about,
+          achievements,
+          img: imgUrl,
+        });
+      } else {
         await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
           id: id.data.id,
           name,
@@ -72,6 +111,18 @@ const UpdateProfile = () => {
       </div>
       <div className="grid gap-6">
         <div className="grid grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label className="font-bold" htmlFor="name">
+              Update Picture
+            </Label>
+            <FileInput
+              //   id="event-image"
+
+              type="file"
+              className="m-1 text-blue-500  file:border-none file:rounded-md file:py-2 file:px-3 file:hover:file:bg-gray-100"
+              onChange={(e) => setImg(e.target.files[0])}
+            />
+          </div>
           <div className="space-y-2">
             <Label className="font-bold" htmlFor="name">
               Name

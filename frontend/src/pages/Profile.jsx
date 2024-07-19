@@ -91,7 +91,7 @@ const Profile = () => {
       <main className="flex-1 bg-background p-6 md:p-10">
         <div className="max-w-3xl mx-auto bg-card rounded-lg shadow-lg overflow-hidden">
           <div className="bg-primary p-6 md:p-10 flex flex-col items-center gap-4">
-            <Avatar className="h-36 w-36" rounded></Avatar>
+            <Avatar size={"xl"} img={profile.img} rounded></Avatar>
             <div className="text-center space-y-1">
               <h1 className="text-2xl font-bold text-white">{profile.name}</h1>
               <p className="text-muted-foreground text-white">

@@ -18,7 +18,7 @@ const SuccessStory = () => {
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-2xl font-bold md:text-3xl">Success Stories</h2>
           <Link
-            href="#"
+            to={"/stories"}
             className="text-sm font-medium hover:underline"
             prefetch={false}
           >
@@ -28,7 +28,12 @@ const SuccessStory = () => {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {successStories.map((story) => (
             <Card key={story.id} className="h-full">
-              <Avatar img={story.imgURL} rounded className="w-full"></Avatar>
+              <Avatar
+                img={story.imgURL}
+                size={"xl"}
+                rounded
+                className="w-full"
+              ></Avatar>
               <div className="space-y-2 p-4">
                 <h1>{story.title}</h1>
                 {/* <div className="text-sm text-muted-foreground">

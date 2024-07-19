@@ -4,11 +4,14 @@ import {
   getAllAlumni,
   getID,
   getProfile,
+  getVerifiedAlumni,
   updateAlumni,
 } from "../controllers/AlumniController.js";
 const router = express.Router();
 // get all alumni
-router.get("/", getAllAlumni);
+router.get("/", getVerifiedAlumni);
+
+router.get("/all", getAllAlumni);
 
 router.post("/create", createAlumni);
 

@@ -10,7 +10,7 @@ const app = express();
 const port = 5555;
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors());
 app.use("/alumni", AlumniRoute);
 app.use("/news", NewsRoute);
 app.use("/event", EventsRoute);

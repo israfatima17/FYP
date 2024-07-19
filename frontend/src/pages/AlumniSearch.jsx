@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Card, TextInput } from "flowbite-react";
+import { Avatar, Button, Card, TextInput } from "flowbite-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 const AlumniSearch = () => {
@@ -77,6 +77,7 @@ const AlumniSearch = () => {
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             {result.map((alumni) => (
               <Card key={alumni.id}>
+                <Avatar img={alumni.img} size={"lg"} rounded></Avatar>
                 <div>
                   <h1 className="text-3xl font-bold">{alumni.name}</h1>
                   <p className="text-gray-400">{alumni.designation}</p>

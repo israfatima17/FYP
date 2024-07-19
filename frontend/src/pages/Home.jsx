@@ -3,6 +3,7 @@ import HeroSection from "../components/Home/HeroSection";
 import News from "../components/Home/News";
 import Events from "../components/Home/Events";
 import SuccessStory from "../components/Home/SuccessStory";
+import Alumni from "../components/Home/Alumni";
 
 const Home = () => {
   return (
@@ -12,7 +13,7 @@ const Home = () => {
       <News />
       <Events />
       <SuccessStory />
-      {/* <Alumni /> */}
+      <Alumni />
     </div>
   );
 };

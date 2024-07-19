@@ -28,7 +28,7 @@ const Alumni = () => {
         <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {alumni.map((alumnus) => (
             <div key={alumnus.id} className="flex flex-col items-center gap-2">
-              <Avatar rounded></Avatar>
+              <Avatar img={alumnus.img} size={"lg"} rounded></Avatar>
               <div className="text-center text-sm">
                 <div className="font-medium">{alumnus.name}</div>
                 <div className="text-muted-foreground">
