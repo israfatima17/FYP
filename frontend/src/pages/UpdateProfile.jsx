@@ -34,6 +34,7 @@ const UpdateProfile = () => {
       const link = await getDownloadURL(result.ref);
       console.log(link);
       setImgUrl(link);
+      alert("Image uploaded successfully");
     }
   };
 
