@@ -33,9 +33,9 @@ const UpdateProfile = () => {
       const result = await uploadBytes(imgRef, img);
       const link = await getDownloadURL(result.ref);
       console.log(link);
-      setImgUrl(link);
-      alert("Image uploaded successfully");
+      return link.toString();
     }
+    return "";
   };
 
   const handleUpdate = async () => {
@@ -49,8 +49,8 @@ const UpdateProfile = () => {
     setAbout(about.trim());
     setAchievements(achievements.trim());
 
-    updateImg();
-
+    const link = await updateImg();
+    console.log(link);
     if (
       name !== null &&
       name !== "" &&
@@ -76,7 +76,8 @@ const UpdateProfile = () => {
         }
       );
 
-      if (id && imgUrl !== "") {
+      if (id) {
+        console.log(link) ;
         await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
           id: id.data.id,
           name,
@@ -86,18 +87,7 @@ const UpdateProfile = () => {
           department,
           about,
           achievements,
-          img: imgUrl,
-        });
-      } else {
-        await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
-          id: id.data.id,
-          name,
-          designation,
-          batch,
-          rollNumber,
-          department,
-          about,
-          achievements,
+          img: link,
         });
       }
     }
