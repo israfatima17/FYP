@@ -10,7 +10,10 @@ import AlumniProfile from "./pages/AlumniProfile";
 import AlumniApprovalPage from "./pages/AlumniApprovalPage";
 import News from "./pages/News";
 import SuccessStories from "./pages/SuccessStories";
+
 import { Error } from "./pages/Error404";
+import CampusLife from "./pages/CampusLife";
+
 
 function App() {
   return (
@@ -26,9 +29,9 @@ function App() {
       <Route path="/alumniApproval" element={<AlumniApprovalPage />} />
       <Route path="/news" element={<News />} />
       <Route path="/stories" element={<SuccessStories />} />
+      <Route path="/campus-life" element={<CampusLife />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
 }
-
 export default App;

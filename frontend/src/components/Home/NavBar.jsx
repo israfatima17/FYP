@@ -44,7 +44,7 @@ const NavBar = () => {
             Success Stories
           </Link>
           <Link
-            href="#"
+            to={"/campus-life"}
             className="text-sm font-medium hover:underline"
             prefetch={false}
           >
