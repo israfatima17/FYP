@@ -16,7 +16,7 @@ const NavBar = () => {
         </Link>
         <div className="hidden items-center gap-4 md:flex">
           <Link
-            href="#"
+            to="/About"
             className="text-sm font-medium hover:underline"
             prefetch={false}
           >
