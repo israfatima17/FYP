@@ -11,8 +11,14 @@ const TopNavBar = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-[#19178B]">
-      <nav className="container flex h-12 items-center justify-end px-4 md:px-6">
-        <button 
+      <nav className="container flex h-12 items-center justify-between px-4 md:px-6">
+        <Link
+          to="/alumni-directory"
+          className="text-sm font-bold text-white hover:underline"
+        >
+          Alumni Directory
+        </Link>
+        <button
           className="px-4 py-2 text-sm font-bold text-[#19178B] bg-white rounded-md"
           onClick={handleLogin}
         >
@@ -70,13 +76,6 @@ const BottomNavBar = () => {
             prefetch={false}
           >
             Alumni
-          </Link>
-          <Link
-            to="/alumni-directory"
-            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
-            prefetch={false}
-          >
-            Alumni Directory
           </Link>
         </div>
       </nav>

@@ -14,7 +14,7 @@ import SuccessStories from "./pages/SuccessStories";
 import { Error } from "./pages/Error404";
 import CampusLife from "./pages/CampusLife";
 import About from "./pages/About";
-import AlumniDirectory from "./components/Home/AlumniDirectory";
+import AlumniDirectory from "./pages/AlumniDirectory";
 
 
 
@@ -34,7 +34,7 @@ function App() {
       <Route path="/stories" element={<SuccessStories />} />
       <Route path="/campus-life" element={<CampusLife />} />
       <Route path="/About" element={<About />} />
-      <Route path="/alumnidirectory" element={<AlumniDirectory />} />
+      <Route path="/alumni-directory" element={<AlumniDirectory />} />
       <Route path="*" element={<Error />} />
     </Routes>
   );
