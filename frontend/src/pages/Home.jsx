@@ -4,6 +4,8 @@ import News from "../components/Home/News";
 import Events from "../components/Home/Events";
 import SuccessStory from "../components/Home/SuccessStory";
 import Alumni from "../components/Home/Alumni";
+import Footer from "../components/Home/Footer";
+import AlumniDirectory from "../components/Home/AlumniDirectory";
 
 const Home = () => {
   return (
@@ -14,6 +16,8 @@ const Home = () => {
       <Events />
       <SuccessStory />
       <Alumni />
+      <Footer />
+      <AlumniDirectory />
     </div>
   );
 };

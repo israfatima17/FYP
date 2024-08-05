@@ -1,67 +1,95 @@
+// src/components/Home/NavBar.jsx
 import { Button } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-import { UniversityIcon } from "../Icons/UniversityIcon";
+import universityLogo from "./homeassets/logo.jpg"; // Ensure the path and file name are correct
 
-const NavBar = () => {
+const TopNavBar = () => {
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/login");
   };
+
   return (
-    <header className="sticky top-0 z-50 bg-background">
+    <header className="sticky top-0 z-50 bg-[#19178B]">
+      <nav className="container flex h-12 items-center justify-end px-4 md:px-6">
+        <button 
+          className="px-4 py-2 text-sm font-bold text-[#19178B] bg-white rounded-md"
+          onClick={handleLogin}
+        >
+          Login
+        </button>
+      </nav>
+    </header>
+  );
+};
+
+const BottomNavBar = () => {
+  return (
+    <header className="sticky top-12 z-40 bg-white shadow-md">
       <nav className="container flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <UniversityIcon className="h-6 w-6" />
-          <span className="text-lg font-semibold">University</span>
+        <Link to="/" className="flex items-center gap-2" prefetch={false}>
+          <img
+            src={universityLogo} // Using imported image
+            alt="University Logo"
+            className="h-12 w-12"
+          />
+          <span className="text-lg font-semibold text-[#19178B] font-unique">SAUS Alumni</span>
         </Link>
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden md:flex items-center gap-4 justify-center flex-grow">
           <Link
-            to="/About"
-            className="text-sm font-medium hover:underline"
+            to="/about"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
             prefetch={false}
           >
             About
           </Link>
           <Link
-            to={"/news"}
-            className="text-sm font-medium hover:underline"
+            to="/news"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
             prefetch={false}
           >
             News
           </Link>
           <Link
-            href="#"
-            className="text-sm font-medium hover:underline"
-            prefetch={false}
-          >
-            Admissions
-          </Link>
-          <Link
-            to={"/stories"}
-            className="text-sm font-medium hover:underline"
+            to="/stories"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
             prefetch={false}
           >
             Success Stories
           </Link>
           <Link
-            to={"/campus-life"}
-            className="text-sm font-medium hover:underline"
+            to="/campus-life"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
             prefetch={false}
           >
             Campus Life
           </Link>
           <Link
-            to={"/alumniSearch"}
-            className="text-sm font-medium hover:underline"
+            to="/alumniSearch"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
+            prefetch={false}
           >
             Alumni
           </Link>
+          <Link
+            to="/alumni-directory"
+            className="text-sm font-bold text-[#19178B] hover:underline font-unique"
+            prefetch={false}
+          >
+            Alumni Directory
+          </Link>
         </div>
-        <Button className="bg-primary" onClick={handleLogin}>
-          Login
-        </Button>
       </nav>
     </header>
+  );
+};
+
+const NavBar = () => {
+  return (
+    <>
+      <TopNavBar />
+      <BottomNavBar />
+    </>
   );
 };
 
