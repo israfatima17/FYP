@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import loginImage from "../assets/download1.jpg"; // Ensure the correct path
 import Login from "../components/SignUpAndLogin/Login"; // Import the Login component
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 const AlumniDirectory = () => {
   const [showLogin, setShowLogin] = useState(true); // State to toggle login display
@@ -38,9 +39,20 @@ const AlumniDirectory = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center bg-white p-6">
+        <div className="flex flex-col items-center justify-center bg-white p-6">
           {/* Show Login Component */}
           {showLogin ? <Login /> : null}
+          
+          {/* Divider and Additional Text */}
+          <div className="w-full mt-6">
+            <hr className="my-4 border-gray-300" />
+            <p className="text-center text-sm text-gray-600">
+              Your account (not your SAUA) is now SAUS Alumni. Don't have an account yet?{" "}
+              <Link to="/Register" className="text-blue-500 font-semibold">
+                Register
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -37,6 +37,9 @@ const UpdateProfile = () => {
     }
     return "";
   };
+  console.log();
+  
+  
 
   const handleUpdate = async () => {
     // trim all use states
@@ -70,26 +73,30 @@ const UpdateProfile = () => {
       const email = localStorage.getItem("email");
       console.log(email);
       const id = await axios.post(
-        import.meta.env.VITE_BASE_URL + "alumni/getId",
+        import.meta.env.VITE_BASE_URL + "/alumni/getId",
         {
           email: email,
         }
       );
 
-      if (id) {
-        console.log(link) ;
-        await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
-          id: id.data.id,
-          name,
-          designation,
-          batch,
-          rollNumber,
-          department,
-          about,
-          achievements,
-          img: link,
-        });
-      }
+
+      console.log(id);
+      
+
+      // if (id) {
+      //   console.log(id) ;
+      //   await axios.post(import.meta.env.VITE_BASE_URL + "/alumni/update", {
+      //     id: id.data.id,
+      //     name,
+      //     designation,
+      //     batch,
+      //     rollNumber,
+      //     department,
+      //     about,
+      //     achievements,
+      //     img: link,
+      //   });
+      // }
     }
     setUpdating(false);
   };

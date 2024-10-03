@@ -13,7 +13,7 @@ export const verifyAdmin = async (req, res) => {
   const user = alumni.filter((u) => u.email === email)[0];
   console.log(user);
 
-  if (user?.isAdmin) {
+  if (user?.isAdmin) { 
     res.send({ isAdmin: true });
   } else {
     res.send({ isAdmin: false });

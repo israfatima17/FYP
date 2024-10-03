@@ -15,11 +15,11 @@ const About = () => {
             alt="University Logo"
             className="w-12 h-12 mr-4"
           />
-          <h1 className="text-lg font-semibold">SAUS Alumni About</h1>
+          <h1 className="text-lg font-semibold">SAUS Alumni About </h1>
         </div>
         <div className="flex space-x-4">
           <Link to="/" className="hover:underline text-sm">Home</Link>
-          <Link to="/about" className="hover:underline text-sm">About</Link>
+          
           <Link to="/news" className="hover:underline text-sm">News</Link>
           <Link to="#" className="hover:underline text-sm">Admissions</Link>
           <Link to="/stories" className="hover:underline text-sm">Success Stories</Link>

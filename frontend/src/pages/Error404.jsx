@@ -1,8 +1,3 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/hvUUvhryaX7
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { Link } from "react-router-dom";
 
 export const Error = () => {
@@ -13,12 +8,11 @@ export const Error = () => {
           404
         </h1>
         <p className="text-lg text-gray-500 dark:text-gray-400">
-          Oops, the page you &apos;re looking for could not be found.
+          Oops, the page you&apos;re looking for could not be found.
         </p>
         <Link
           to={"/"}
           className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-          prefetch={false}
         >
           Go Back Home
         </Link>

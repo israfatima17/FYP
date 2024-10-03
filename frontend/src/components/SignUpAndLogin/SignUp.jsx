@@ -24,31 +24,43 @@ const SignUp = () => {
   };
 
   return (
-    <div className="max-w-md space-y-6">
-      <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold text-primary-foreground">
-          Welcome to University
-        </h1>
-        <p className="text-primary-foreground/80">
-          Create an account or sign in to get started.
-        </p>
-      </div>
-      <Card>
-        <h1 className="text-3xl text-center font-bold">Register</h1>
-        <p>Fill out the form below to create a new account.</p>
+    <div className="max-w-md space-y-6 mx-auto">
+    {/* Container for title and line */}
+    <div className="relative flex items-center">
+      <h1 className="text-3xl font-bold text-[rgb(25,23,139)] absolute top-[-70px] left-8 p-4 letter-spacing-2 font-roboto">
+        Alumni Registration
+      </h1>
 
-        <div className="space-y-4">
+      <div className="h-px bg-[rgb(113,31,60)] w-full absolute top-1/2"></div>
+    </div>
+
+    {/* Descriptive Text */}
+    <div className="text-white text-sm mt-6 font-roboto">
+      <p>
+        Please submit the registration form below to join our alumni community.
+        Those alumni who have already registered can access their accounts through login.
+      </p>
+    </div>
+
+
+      <Card className="bg-white border shadow-md rounded-lg">
+        <div className="space-y-4 px-6 py-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name" className="text-[rgb(113,31,60)] font-medium">
+              Name
+            </Label>
             <TextInput
               id="name"
               placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="border border-gray-300 rounded-md focus:outline-none focus:border-[rgb(25,23,139)] px-3 py-2"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-[rgb(113,31,60)] font-medium">
+              Email
+            </Label>
             <TextInput
               id="email"
               type="email"
@@ -56,16 +68,21 @@ const SignUp = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              className="border border-gray-300 rounded-md focus:outline-none focus:border-[rgb(25,23,139)] px-3 py-2"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password" className="text-[rgb(113,31,60)] font-medium">
+              Password
+            </Label>
             <TextInput
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="border border-gray-300 rounded-md   
+ focus:outline-none focus:border-[rgb(25,23,139)] px-3 py-2"
             />
           </div>
         </div>

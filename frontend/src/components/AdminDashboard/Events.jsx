@@ -11,6 +11,8 @@ const Events = () => {
   const [uploading, setUploading] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");      // New state for event date
+  const [location, setLocation] = useState("");  // New state for event location
 
   const handleClick = async () => {
     if (img !== null) {
@@ -18,12 +20,14 @@ const Events = () => {
       const imgRef = ref(imageDb, `files/${v4()}`);
       const result = await uploadBytes(imgRef, img);
       const link = await getDownloadURL(result.ref);
-      const obj = { title: title, imgURL: link };
+      const obj = { title: title, imgURL: link, date: date, location: location };  // Include new fields
       const res = await axios.post(
         import.meta.env.VITE_BASE_URL + "event/create",
         {
           title: title,
           imgURL: link,
+          date: date,       // Send event date to API
+          location: location,  // Send event location to API
         }
       );
       console.log(res.data);
@@ -32,6 +36,8 @@ const Events = () => {
       setUploading(false);
       setImg("");
       setTitle("");
+      setDate("");        // Clear date input
+      setLocation("");    // Clear location input
     }
   };
 
@@ -68,10 +74,8 @@ const Events = () => {
           <div className="space-y-2">
             <Label htmlFor="event-image">Event Image</Label>
             <FileInput
-              //   id="event-image"
-
               type="file"
-              className="m-1 text-blue-500  file:border-none file:rounded-md file:py-2 file:px-3 file:hover:file:bg-gray-100"
+              className="m-1 text-blue-500 file:border-none file:rounded-md file:py-2 file:px-3 file:hover:file:bg-gray-100"
               onChange={(e) => setImg(e.target.files[0])}
             />
           </div>
@@ -82,6 +86,24 @@ const Events = () => {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="event-date">Event Date</Label>
+            <TextInput
+              id="event-date"
+              type="date"              // Date input for event date
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="event-location">Event Location</Label>
+            <TextInput
+              id="event-location"
+              type="text"               // Input for event location
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
           <Button className="col-span-2 bg-primary" onClick={handleClick}>
@@ -99,6 +121,8 @@ const Events = () => {
             />
             <div className="p-4">
               <h3 className="text-lg font-bold mb-2">{img.title}</h3>
+              <p className="text-gray-500 mb-2">Date: {img.date}</p>   {/* Display event date */}
+              <p className="text-gray-500 mb-4">Location: {img.location}</p> {/* Display event location */}
               <div className="flex  flex-row-reverse">
                 <Button
                   id={img.id}
