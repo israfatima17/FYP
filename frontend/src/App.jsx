@@ -16,28 +16,32 @@ import CampusLife from "./pages/CampusLife";
 import About from "./pages/About";
 import AlumniDirectory from "./pages/AlumniDirectory";
 
-
-
+// Import Toaster from react-hot-toast
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/admin" element={<AdminDashboard />} />
-      <Route path="/login" element={<SignUpAndLogin />} />
-      <Route path="/register" element={<SignUpAndLogin />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/alumni/:id" element={<AlumniProfile />} />
-      <Route path="/updateProfile" element={<UpdateProfile />} />
-      <Route path="/alumniSearch" element={<AlumniSearch />} />
-      <Route path="/alumniApproval" element={<AlumniApprovalPage />} />
-      <Route path="/news" element={<News />} />
-      <Route path="/stories" element={<SuccessStories />} />
-      <Route path="/campus-life" element={<CampusLife />} />
-      <Route path="/About" element={<About />} />
-      <Route path="/alumni-directory" element={<AlumniDirectory />} />
-      <Route path="*" element={<Error />} />
-    </Routes>
+    <>
+      <Toaster />  {/* This will enable toast notifications */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/login" element={<SignUpAndLogin />} />
+        <Route path="/register" element={<SignUpAndLogin />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/alumni/:id" element={<AlumniProfile />} />
+        <Route path="/updateProfile" element={<UpdateProfile />} />
+        <Route path="/alumniSearch" element={<AlumniSearch />} />
+        <Route path="/alumniApproval" element={<AlumniApprovalPage />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/stories" element={<SuccessStories />} />
+        <Route path="/campus-life" element={<CampusLife />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/alumni-directory" element={<AlumniDirectory />} />
+        <Route path="*" element={<Error />} />
+      </Routes>
+    </>
   );
 }
+
 export default App;

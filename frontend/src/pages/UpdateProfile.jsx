@@ -9,9 +9,10 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { imageDb } from "../firebase/ImgDB";
-import { useEffect } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const UpdateProfile = () => {
   const [name, setName] = useState("");
@@ -23,82 +24,71 @@ const UpdateProfile = () => {
   const [achievements, setAchievements] = useState("");
   const [updating, setUpdating] = useState(false);
   const [img, setImg] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const navigate = useNavigate();
 
   const updateImg = async () => {
-    if (img !== null) {
+    if (img != null) {
       setUploading(true);
       const imgRef = ref(imageDb, `files/${v4()}`);
       const result = await uploadBytes(imgRef, img);
       const link = await getDownloadURL(result.ref);
-      console.log(link);
       return link.toString();
     }
     return "";
   };
-  console.log();
-  
-  
+
+  const aluminID = window.localStorage.getItem("alumniID")
 
   const handleUpdate = async () => {
-    // trim all use states
     setUpdating(true);
-    setName(name.trim());
-    setDesignation(designation.trim());
-    setBatch(batch.trim());
-    setRollNumber(rollNumber.trim());
-    setDepartment(department.trim());
-    setAbout(about.trim());
-    setAchievements(achievements.trim());
-
-    const link = await updateImg();
-    console.log(link);
-    if (
-      name !== null &&
-      name !== "" &&
-      designation !== null &&
-      designation !== "" &&
-      batch !== null &&
-      batch !== "" &&
-      rollNumber !== null &&
-      rollNumber !== "" &&
-      department !== null &&
-      department !== "" &&
-      about !== null &&
-      about !== "" &&
-      achievements !== null &&
-      achievements !== ""
-    ) {
+    try {
+      const link = await updateImg();
       const email = localStorage.getItem("email");
-      console.log(email);
-      const id = await axios.post(
-        import.meta.env.VITE_BASE_URL + "/alumni/getId",
-        {
-          email: email,
-        }
-      );
 
+      if (
+        name &&
+        designation &&
+        batch &&
+        rollNumber &&
+        department &&
+        about &&
+        achievements
+      ) {
+        // Prepare update data
+        const updateData = {
+          email,
+          name,
+          designation,
+          batch,
+          rollNumber,
+          department,
+          about,
+          achievements,
+          img: link,
+        };
 
-      console.log(id);
-      
+        // Call update endpoint
+        const res = await axios.post(
+          import.meta.env.VITE_BASE_URL + "alumni/update",
+          { id: aluminID, updateData }
+        );
 
-      // if (id) {
-      //   console.log(id) ;
-      //   await axios.post(import.meta.env.VITE_BASE_URL + "/alumni/update", {
-      //     id: id.data.id,
-      //     name,
-      //     designation,
-      //     batch,
-      //     rollNumber,
-      //     department,
-      //     about,
-      //     achievements,
-      //     img: link,
-      //   });
-      // }
+        res.data.message === "User data updated successfully"
+          ? toast.success(res.data.message)
+          : toast.error(res.data.message);
+
+        res.data.message === "User data updated successfully"
+          ? navigate("/profile")
+          : this;
+      } else {
+        toast.error("All fields are required.");
+      }
+    } catch (error) {
+      console.log("Error updating profile", error);
+    } finally {
+      setUpdating(false);
     }
-    setUpdating(false);
   };
 
   return (
@@ -108,65 +98,61 @@ const UpdateProfile = () => {
         <p className="text-xl">Manage your alumni profile information.</p>
       </div>
       <div className="grid gap-6">
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label className="font-bold" htmlFor="name">
-              Update Picture
-            </Label>
-            <FileInput
-              //   id="event-image"
-
-              type="file"
-              className="m-1 text-blue-500  file:border-none file:rounded-md file:py-2 file:px-3 file:hover:file:bg-gray-100"
-              onChange={(e) => setImg(e.target.files[0])}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label className="font-bold" htmlFor="name">
-              Name
-            </Label>
-            <TextInput
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              id="name"
-              placeholder="Enter your name"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label className="font-bold" htmlFor="designation">
-              Designation
-            </Label>
-            <TextInput
-              value={designation}
-              onChange={(e) => setDesignation(e.target.value)}
-              id="designation"
-              placeholder="Enter your designation"
-            />
-          </div>
+        {/* File Input for Image */}
+        <div className="space-y-2">
+          <Label className="font-bold" htmlFor="name">
+            Update Picture
+          </Label>
+          <FileInput
+            type="file"
+            className="m-1 text-blue-500 file:border-none file:rounded-md file:py-2 file:px-3 file:hover:file:bg-gray-100"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
         </div>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label className="font-bold" htmlFor="batch">
-              Batch
-            </Label>
-            <TextInput
-              value={batch}
-              onChange={(e) => setBatch(e.target.value)}
-              id="batch"
-              placeholder="Enter your batch"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label className="font-bold" htmlFor="roll-number">
-              Roll Number
-            </Label>
-            <TextInput
-              value={rollNumber}
-              onChange={(e) => setRollNumber(e.target.value)}
-              id="roll-number"
-              placeholder="Enter your roll number"
-            />
-          </div>
+        {/* Other Input Fields */}
+        <div className="space-y-2">
+          <Label className="font-bold" htmlFor="name">
+            Name
+          </Label>
+          <TextInput
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            id="name"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label className="font-bold" htmlFor="designation">
+            Designation
+          </Label>
+          <TextInput
+            value={designation}
+            onChange={(e) => setDesignation(e.target.value)}
+            id="designation"
+            placeholder="Enter your designation"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label className="font-bold" htmlFor="batch">
+            Batch
+          </Label>
+          <TextInput
+            value={batch}
+            onChange={(e) => setBatch(e.target.value)}
+            id="batch"
+            placeholder="Enter your batch"
+          />
+        </div>
+        <div className="space-y-2">
+          <Label className="font-bold" htmlFor="roll-number">
+            Roll Number
+          </Label>
+          <TextInput
+            value={rollNumber}
+            onChange={(e) => setRollNumber(e.target.value)}
+            id="roll-number"
+            placeholder="Enter your roll number"
+          />
         </div>
         <div className="space-y-2">
           <Label className="font-bold" htmlFor="department">

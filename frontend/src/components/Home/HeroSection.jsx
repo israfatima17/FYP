@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import image2 from "../Home/homeassets/image2.jpg";
+import image3 from "../Home/homeassets/image3.jpg";
 import { Link } from "react-router-dom"; // Import Link for navigation
 
 const HeroSection = () => {
@@ -7,7 +7,7 @@ const HeroSection = () => {
     <section className="relative py-24 md:py-32">
       <div
         className="absolute inset-0 bg-cover bg-center rounded-lg"
-        style={{ backgroundImage: `url(${image2})` }}
+        style={{ backgroundImage: `url(${image3})` }}
       >
         <div className="absolute inset-0 bg-black opacity-50 rounded-lg"></div>
       </div>

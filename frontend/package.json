@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "axios": "^1.7.2",
     "firebase": "^10.12.3",
     "flowbite-react": "^0.10.1",

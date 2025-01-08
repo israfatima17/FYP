@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { Avatar, Button, Card, TextInput } from "flowbite-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FaWhatsapp } from "react-icons/fa";
+
 import universityLogo from "../assets/universitylogo.jpg"
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'; // Import icons from react-icons
 
@@ -53,50 +55,95 @@ const AlumniSearch = () => {
       </nav>
 
       <main className="flex-1 py-12 px-4 md:px-6">
-        <div className="container mx-auto max-w-3xl">
-          <h1 className="text-3xl font-bold mb-6">Alumni Search</h1>
-          <div className="relative">
-            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <TextInput
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search for alumni..."
-              className="w-full px-12 py-3 rounded-md bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-            />
-          </div>
-          <Button className="bg-primary mt-2 mb-2" onClick={handleSearch}>
-            Search
-          </Button>
+  <div className="container mx-auto max-w-3xl">
+    <h1 className="text-3xl font-bold mb-6">Alumni Search</h1>
+    <div className="relative">
+      <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+      <TextInput
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        placeholder="Search for alumni..."
+        className="w-full px-12 py-3 rounded-md bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+      />
+    </div>
+    <Button className="bg-primary mt-2 mb-2" onClick={handleSearch}>
+      Search
+    </Button>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {result.map((alumni) => (
-              <Card key={alumni.id}>
-                <Avatar img={alumni.img} size={"lg"} rounded></Avatar>
-                <div>
-                  <h1 className="text-3xl font-bold">{alumni.name}</h1>
-                  <p className="text-gray-400">{alumni.designation}</p>
-                </div>
-                <div>
-                  <p>{alumni.department}</p>
-                  <p className="mt-2 text-muted-foreground">{alumni.batch}</p>
-                </div>
-                <div>
-                  <Link
-                    to={`/alumni/${alumni.id}`}
-                    className="text-primary hover:underline"
-                  >
-                    View Profile
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </main>
+    {/* Flexbox container for horizontal layout */}
+    <div className="mt-8 flex overflow-x-auto space-x-6">
+      {result.map((alumni) => {
+        console.log(alumni.img); // Check the image URL
+        return (
+          <Card
+            key={`${alumni.id}-${alumni.name}`} // Concatenating id with name or any other unique property
+            className="flex-shrink-0 w-64 p-4 bg-white rounded-lg shadow-md"
+          >
+            {/* Using Avatar component to display the image */}
+            <Avatar 
+              img={alumni.img} // Pass the img URL from alumni object
+              size={"lg"} 
+              rounded 
+            />
+            <div>
+              <h1 className="text-xl font-bold">{alumni.name}</h1>
+              <p className="text-gray-400">{alumni.designation}</p>
+            </div>
+            <div>
+              <p>{alumni.department}</p>
+              <p className="mt-2 text-muted-foreground">{alumni.batch}</p>
+            </div>
+            <div>
+              <Link
+                to={`/alumni/${alumni.id}`}
+                className="text-primary hover:underline"
+                onClick={() => window.localStorage.setItem("alumniEmail", alumni.email)}
+              >
+                View Profile
+              </Link>
+            </div>
+          </Card>
+        );
+      })}
+    </div>
+  </div>
+</main>
       {/* Footer */}
       <footer className="bg-[#F0F0F0] text-gray-700 py-12 px-6">
         <div className="container mx-auto">
+           {/* Join Our Alumni Groups Section */}
+    <div className="bg-white p-6 shadow-md rounded-lg mb-12 text-center">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Join Our Alumni Groups</h2>
+      <p className="text-gray-600 mb-4">Connect with us through our official alumni groups!</p>
+      <div className="flex justify-center space-x-4">
+        <a
+          href="https://wa.me/yourwhatsappnumber"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-green-500 hover:scale-105 transform transition"
+        >
+          <FaWhatsapp size={30} />
+        </a>
+        <a
+          href="https://facebook.com/yourgroup"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:scale-105 transform transition"
+        >
+          <FaFacebook size={30} />
+        </a>
+        <a
+          href="https://linkedin.com/in/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700 hover:scale-105 transform transition"
+        >
+          <FaLinkedin size={30} />
+        </a>
+      </div>
+    </div>
+
           <div className="flex flex-col md:flex-row justify-between items-start mb-12">
             <div className="text-center md:text-left mb-8 md:mb-0">
               <img
@@ -123,6 +170,7 @@ const AlumniSearch = () => {
               </div>
             </div>
           </div>
+          
           <div className="text-center">
             <p className="text-sm text-gray-600 mb-2">© 2024. Shaikh Ayaz University Shikarpur. All Rights Reserved</p>
             <ul className="flex justify-center space-x-4 text-sm text-gray-600">

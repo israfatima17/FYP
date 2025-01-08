@@ -2,11 +2,43 @@
 import React from 'react';
 import { FaPhone, FaMapMarkerAlt, FaEnvelope, FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import universityLogo from "./homeassets/logo.jpg"; // Adjust the import path as needed
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white p-6">
       <div className="container mx-auto">
+               {/* Join Our Alumni Groups Section */}
+    <div className="bg-white p-6 shadow-md rounded-lg mb-12 text-center">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Join Our Alumni Groups</h2>
+      <p className="text-gray-600 mb-4">Connect with us through our official alumni groups!</p>
+      <div className="flex justify-center space-x-4">
+        <a
+          href="https://wa.me/yourwhatsappnumber"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-green-500 hover:scale-105 transform transition"
+        >
+          <FaWhatsapp size={30} />
+        </a>
+        <a
+          href="https://facebook.com/yourgroup"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:scale-105 transform transition"
+        >
+          <FaFacebook size={30} />
+        </a>
+        <a
+          href="https://linkedin.com/in/yourprofile"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-700 hover:scale-105 transform transition"
+        >
+          <FaLinkedin size={30} />
+        </a>
+      </div>
+    </div>
         <div className="flex flex-col md:flex-row justify-between items-start mb-12">
           <div className="text-center md:text-left mb-8 md:mb-0">
             <img
@@ -15,7 +47,7 @@ const Footer = () => {
               className="w-16 h-16 mb-4 mx-auto md:mx-0"
             />
             <p className="text-lg font-semibold mb-2">The Shaikh Ayaz University</p>
-            <p className="text-sm">Formerly Shikarpur Campus of Shah Abdul Latif University Khairpur</p>
+            <p className="text-sm">Formerly Shikarpur Campus of Shah Abdul Latif  University Khairpur</p>
           </div>
           <div className="text-center md:text-left mb-8 md:mb-0">
             <h3 className="text-xl font-semibold mb-2">Contact Information</h3>

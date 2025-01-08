@@ -15,11 +15,10 @@ const About = () => {
             alt="University Logo"
             className="w-12 h-12 mr-4"
           />
-          <h1 className="text-lg font-semibold">SAUS Alumni About </h1>
+          <h1 className="text-lg font-semibold">SAUS Alumni About</h1>
         </div>
         <div className="flex space-x-4">
           <Link to="/" className="hover:underline text-sm">Home</Link>
-          
           <Link to="/news" className="hover:underline text-sm">News</Link>
           <Link to="#" className="hover:underline text-sm">Admissions</Link>
           <Link to="/stories" className="hover:underline text-sm">Success Stories</Link>
@@ -35,7 +34,7 @@ const About = () => {
           <h2 className="text-2xl font-semibold mb-4">About</h2>
           <h2 className="text-2xl font-semibold mb-4">SAUS ALUMNI</h2>
           <hr className="border-[#711F3C] mb-10" />
-          <p className="text-sm mb-4">
+          <p className="text-sm mb-4" style={{ textAlign: 'justify' }}>
             The Shaikh Ayaz University, formerly the Shikarpur Campus of Shah Abdul Latif University Khairpur, was established by a government notification on December 12. Named after the renowned Sindhi poet Shaikh Ayaz, it gained support from students, faculty, and local leaders. Founded in 2011 under Prof. Dr. G. Raza Bhatti, the campus transformed into a vibrant educational center. Successive leaderships introduced new academic departments and programs, enhancing the campus's academic vitality. The transition to a university was marked by significant community engagement and media coverage. Dr. Nisar Ahmed Siddiqui, Vice Chancellor of IBA Sukkur, took charge of the new university. The institution aims to revive Shikarpur's socio-economic and cultural heritage while pursuing excellence in research and education. The 98-acre site near Shikarpur-Jacobabad Bypass includes plans for academic blocks, hostels, and infrastructure development. Continued support from the Sindh Government is crucial for its growth and success.
           </p>
         </section>
@@ -89,7 +88,7 @@ const About = () => {
             <h3 className="text-md font-semibold border-b-2 border-[#711F3C] inline-block pb-1 text-[#711F3C]">
               Vision
             </h3>
-            <p className="text-sm mt-2">
+            <p className="text-sm mt-2" style={{ textAlign: 'justify' }}>
               Inspire and engage our alumni in a lifelong commitment to support the university and make a better community around it.
             </p>
           </div>
@@ -98,7 +97,7 @@ const About = () => {
             <h3 className="text-md font-semibold border-b-2 border-[#711F3C] inline-block pb-1 text-[#711F3C]">
               Mission
             </h3>
-            <p className="text-sm mt-2">
+            <p className="text-sm mt-2" style={{ textAlign: 'justify' }}>
               To reach, inspire, engage and support current and future alumni of the university by nourishing pride, celebrating achievements, inspiring volunteerism and giving, and providing lifelong learning opportunities for personal and professional growth, to bring benefit to the alumni, university, and community around it.
             </p>
           </div>
@@ -116,83 +115,61 @@ const About = () => {
             <div className="text-center">
               <h4 className="text-lg font-semibold text-[#711F3C] mb-2">COMMUNICATION</h4>
               <hr className="border-[#711F3C] mb-4 mx-auto w-24" />
-              <p className="text-sm">
+              <p className="text-sm" style={{ textAlign: 'justify' }}>
                 We are committed to connecting with our alumni through frequent communications and thoughtful content.
               </p>
             </div>
             <div className="text-center">
               <h4 className="text-lg font-semibold text-[#711F3C] mb-2">CREATIVITY</h4>
               <hr className="border-[#711F3C] mb-4 mx-auto w-24" />
-              <p className="text-sm">
-                We are committed to the development of original ideas, knowledge, and innovative approaches to solving complex problems.
+              <p className="text-sm" style={{ textAlign: 'justify' }}>
+                We believe in innovative ideas and creative solutions that inspire our community and promote engagement.
               </p>
             </div>
             <div className="text-center">
               <h4 className="text-lg font-semibold text-[#711F3C] mb-2">COMMUNITY</h4>
               <hr className="border-[#711F3C] mb-4 mx-auto w-24" />
-              <p className="text-sm">
-                We are committed to connecting a diverse community, sharing common attitudes, interests, and goals to empower our alumni, university, and community around us.
+              <p className="text-sm" style={{ textAlign: 'justify' }}>
+                Our alumni network is a vibrant community of passionate individuals dedicated to uplifting each other and the society around them.
               </p>
             </div>
             <div className="text-center">
-              <h4 className="text-lg font-semibold text-[#711F3C] mb-2">EXCELLENCE</h4>
+              <h4 className="text-lg font-semibold text-[#711F3C] mb-2">CULTURE</h4>
               <hr className="border-[#711F3C] mb-4 mx-auto w-24" />
-              <p className="text-sm">
-                We are committed to striving for high standards in all our endeavors, ensuring the highest quality of services for our alumni.
+              <p className="text-sm" style={{ textAlign: 'justify' }}>
+                We celebrate our diverse backgrounds and experiences, fostering a culture of respect, support, and inclusivity.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="register-now-section py-12 px-6 text-center">
-  <h2 className="text-2xl font-bold text-[#711F3C] mb-4">Register Now</h2>
-  <p className="text-sm mb-6 max-w-2xl mx-auto">
-    The Membership of SAUS Alumni is free of cost and open to all the graduates and graduating students of the university. However, they are required to register with us. We are working to improve and enhance the experience for our alumni, beyond the walls of the university campus. Nothing makes us happier than seeing our alumni come together and sharing their success.
-  </p>
-  <Link to="/login" className="inline-block">
-    <button className="px-6 py-3 bg-[#711F3C] text-white font-semibold rounded-lg shadow-md hover:bg-[#8C1D40] transition-colors duration-300">
-      Register Now
-    </button>
-  </Link>
-</section>
-
       {/* Footer */}
-      <footer className="bg-[#F0F0F0] text-gray-700 py-12 px-6">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start mb-12">
-            <div className="text-center md:text-left mb-8 md:mb-0">
-              <img
-                src={universityLogo} // Using imported image
-                alt="University Logo"
-                className="w-16 h-16 mb-4 mx-auto md:mx-0"
-              />
-              <p className="text-lg font-semibold mb-2">The Shaikh Ayaz University</p>
-              <p className="text-sm">Formerly Shikarpur Campus of Shah Abdul Latif University Khairpur</p>
-            </div>
-            <div className="text-center md:text-left mb-8 md:mb-0">
-              <h3 className="text-xl font-semibold mb-2">Contact Information</h3>
-              <p className="flex items-center justify-center md:justify-start mb-2"><FaPhone className="mr-2 text-xl" /> +92 726 920369/512040</p>
-              <p className="flex items-center justify-center md:justify-start mb-2"><FaMapMarkerAlt className="mr-2 text-xl" /> Main Shikarpur Road, Shikarpur</p>
-              <p className="flex items-center justify-center md:justify-start"><FaEnvelope className="mr-2 text-xl" /> info@saus.edu.pk</p>
-            </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-xl font-semibold mb-2">Connect With Us</h3>
-              <div className="flex justify-center md:justify-start space-x-4 mb-4">
-                <a href="https://www.facebook.com/people/The-Shaikh-Ayaz-University-Shikarpur/100087709870723/" target="_blank" rel="noopener noreferrer"><FaFacebook className="text-2xl text-blue-600" /></a>
-                <a href="https://twitter.com/AyazUniversity" target="_blank" rel="noopener noreferrer"><FaTwitter className="text-2xl text-blue-400" /></a>
-                <a href="https://www.instagram.com/saus.edu.pk/" target="_blank" rel="noopener noreferrer"><FaInstagram className="text-2xl text-pink-500" /></a>
-                <a href="https://www.linkedin.com/company/the-shaikh-ayaz-university/?originalSubdomain=pk" target="_blank" rel="noopener noreferrer"><FaLinkedin className="text-2xl text-blue-700" /></a>
-              </div>
-            </div>
-          </div>
-          <div className="text-center">
-            <p className="text-sm text-gray-600 mb-2">© 2024. Shaikh Ayaz University Shikarpur. All Rights Reserved</p>
-            <ul className="flex justify-center space-x-4 text-sm text-gray-600">
-              <li><a href="https://saus.edu.pk/terms-and-conditions/" className="hover:underline">Terms and Conditions</a></li>
-              <li><a href="https://saus.edu.pk/privacy-policy/" className="hover:underline">Privacy Policy</a></li>
-              <li><a href="https://saus.edu.pk/press-release/" className="hover:underline">Press Release</a></li>
-            </ul>
+      <footer className="bg-[#711F3C] text-white py-4">
+        <div className="flex justify-between items-center max-w-4xl mx-auto">
+          <p className="text-sm">© 2024 SAUS Alumni. All rights reserved.</p>
+          <div className="flex space-x-4">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+              <FaFacebook className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+              <FaTwitter className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+              <FaInstagram className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+              <FaLinkedin className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="mailto:info@saus.edu.pk">
+              <FaEnvelope className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="tel:+123456789">
+              <FaPhone className="text-lg hover:text-gray-300" />
+            </a>
+            <a href="https://goo.gl/maps/xyz" target="_blank" rel="noopener noreferrer">
+              <FaMapMarkerAlt className="text-lg hover:text-gray-300" />
+            </a>
           </div>
         </div>
       </footer>

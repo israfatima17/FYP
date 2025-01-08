@@ -11,7 +11,8 @@ const Alumni = () => {
     const fetchAlumni = async () => {
       try {
         const res = await axios.get(`${import.meta.env.VITE_BASE_URL}alumni`);
-        setAlumni(res.data.slice(0, 5));
+        // Only show verified alumni
+        setAlumni(res.data.filter(alumnus => alumnus.isVerified).slice(0, 5));
       } catch (err) {
         setError("Failed to fetch alumni data.");
         console.error(err);
@@ -25,10 +26,7 @@ const Alumni = () => {
       <div className="container px-4 md:px-6">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-2xl font-bold md:text-3xl">Alumni</h2>
-          <Link
-            to="/alumniSearch"
-            className="text-sm font-medium hover:underline"
-          >
+          <Link to="/alumniSearch" className="text-sm font-medium hover:underline">
             Search Alumni
           </Link>
         </div>

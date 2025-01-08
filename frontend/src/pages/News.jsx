@@ -9,7 +9,7 @@ const AlumniSearch = () => {
   const [search, setSearch] = useState("");
   const [newsData, setNewsData] = useState([]); // Store the original news data
   const [filteredNews, setFilteredNews] = useState([]); // Store the filtered news data
-
+  
   // Fetch the news from the API
   useEffect(() => {
     const fetchNews = async () => {

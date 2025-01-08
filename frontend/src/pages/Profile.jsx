@@ -1,84 +1,74 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { Avatar, Button } from "flowbite-react";
-import { signOut } from "firebase/auth";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/auth";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+
 const Profile = () => {
-  const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
   const [profile, setProfile] = useState({});
+  const [userEmail, setUserEmail] = useState(null); // Store the user's email
+  console.log(profile)
 
   useEffect(() => {
-    auth.onAuthStateChanged((userCred) => {
-      console.log(userCred);
-      if (!userCred) {
-        navigate("/login");
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserEmail(user.email); // Set the email when the user is authenticated
       } else {
-        axios
-          .post(import.meta.env.VITE_BASE_URL + "alumni/getId", {
-            email: userCred.email,
-          })
-          .then((id) => {
-            console.log(id);
-            localStorage.setItem("UID", id.data.id);
-          });
+        console.error("User not authenticated.");
+        navigate("/login"); // Redirect to login if not authenticated
       }
     });
 
-    const profileData = async () => {
-      const id = localStorage.getItem("UID");
-      console.log("getting data");
-      const data = await axios.post(
-        import.meta.env.VITE_BASE_URL + "alumni/getProfile",
-        {
-          id: id,
+    return () => unsubscribe(); // Clean up the listener
+  }, [navigate]);
+  console.log(userEmail)
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      if (userEmail) { // Only fetch if email is set
+        try {
+          const response = await axios.post(
+            "http://localhost:5555/alumni/getProfile",
+            { email: userEmail }
+          );
+          console.log(response.data);
+          setProfile(response.data[0]); // Set profile data
+        } catch (error) {
+          console.error("Error fetching profile data:", error);
         }
-      );
-      console.log(data);
-      setProfile(data.data);
+      }
     };
-    profileData();
-  }, []);
+
+    fetchProfileData();
+  }, [userEmail]);
 
   const handleSignOut = async () => {
     try {
-      const res = await signOut(auth);
-      console.log(res);
+      await signOut(auth);
       navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log(profile)
+
   const handleUpdateProfile = () => {
     navigate("/updateProfile");
+    window.localStorage.setItem("alumniID", profile?.id)
   };
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="bg-primary text-primary-foreground px-6 py-4 flex items-center justify-between">
+      {/* Navbar Section */}
+      <header className="bg-primary text-primary-foreground px-6 py-4 flex items-center justify-between h-24">
         <div className="flex items-center gap-4">
-          <Link href="#" className="flex items-center gap-2">
-            <UniversityIcon className="h-6 w-6" />
-            <span className="text-lg font-semibold">University</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-4">
-            <Link href="#" className="text-sm font-medium hover:underline">
-              Home
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline">
-              Academics
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline">
-              Campus Life
-            </Link>
-            <Link href="#" className="text-sm font-medium hover:underline">
-              About
-            </Link>
-          </nav>
+          <Avatar size={"lg"} img={profile?.updateData?.img} rounded />
+          <div className="text-white">
+            <p className="font-bold text-lg">{profile?.name}</p>
+            <p>{profile?.updateData?.batch}</p>
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <Button className="bg-primary" onClick={handleSignOut}>
@@ -89,78 +79,50 @@ const Profile = () => {
           </Button>
         </div>
       </header>
-      <main className="flex-1 bg-background p-6 md:p-10">
-        <div className="max-w-3xl mx-auto bg-card rounded-lg shadow-lg overflow-hidden">
-          <div className="bg-primary p-6 md:p-10 flex flex-col items-center gap-4">
-            <Avatar size={"xl"} img={profile.img} rounded></Avatar>
-            <div className="text-center space-y-1">
-              <h1 className="text-2xl font-bold text-white">{profile.name}</h1>
-              <p className="text-muted-foreground text-white">
-                {profile.designation}
-              </p>
-              <p className="text-muted-foreground text-white">
-                {profile.department}, {profile.batch}, {profile.rollNumber}
-              </p>
-              <p className="text-muted-foreground text-white">
-                {profile.email}
-              </p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 md:p-10">
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold">About</h2>
-              <p className="text-muted-foreground">{profile.about}</p>
-            </div>
-            <div className="space-y-2">
-              <h2 className="text-lg font-semibold">Achievements</h2>
-              <p className="space-y-1 text-muted-foreground">
-                {profile.achievements}
-              </p>
+
+      {/* Main Section */}
+      <main className="flex flex-grow">
+        <div className="bg-gray-100 p-6 w-1/4">
+          <h2 className="text-lg font-semibold">You are viewing an alumni profile page.</h2>
+          <p className="text-muted-foreground">
+            Update your profile. Once updated, it will be approved by the admin.
+          </p>
+        </div>
+
+        <div className="flex-1 bg-white p-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold mb-4">Alumni Details</h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold">Name</h3>
+                <p className="text-muted-foreground">{profile?.name}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Batch</h3>
+                <p className="text-muted-foreground">{profile?.updateData?.batch}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Department</h3>
+                <p className="text-muted-foreground">{profile?.updateData?.department}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Designation</h3>
+                <p className="text-muted-foreground">{profile?.updateData?.designation}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">About</h3>
+                <p className="text-muted-foreground">{profile?.updateData?.about}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">Achievements</h3>
+                <p className="text-muted-foreground">{profile?.updateData?.achievements}</p>
+              </div>
             </div>
           </div>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground px-6 py-4 flex items-center justify-between">
-        <p className="text-sm">&copy; 2024 University</p>
-        <nav className="flex items-center gap-4">
-          <Link href="#" className="text-sm hover:underline">
-            Privacy
-          </Link>
-          <Link href="#" className="text-sm hover:underline">
-            Terms
-          </Link>
-          <Link href="#" className="text-sm hover:underline">
-            Contact
-          </Link>
-        </nav>
-      </footer>
     </div>
   );
 };
 
 export default Profile;
-
-function UniversityIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="10" r="1" />
-      <path d="M22 20V8h-4l-6-4-6 4H2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2" />
-      <path d="M6 17v.01" />
-      <path d="M6 13v.01" />
-      <path d="M18 17v.01" />
-      <path d="M18 13v.01" />
-      <path d="M14 22v-5a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5" />
-    </svg>
-  );
-}

@@ -6,63 +6,58 @@ import { useEffect, useState } from "react";
 const AlumniApprovalPage = () => {
   const [alumni, setAlumni] = useState([]);
   const [verified, setVerified] = useState(false);
-  // const [rejected, setRejected] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const getAlumni = async () => {
-      const alumni = await axios.get(
-        import.meta.env.VITE_BASE_URL + "alumni/all"
-      );
-      console.log(
-        alumni.data.filter((alumnus) => alumnus.isVerified === false)
-      );
-      setAlumni(alumni.data.filter((alumnus) => alumnus.isVerified === false));
+      const alumni = await axios.get(import.meta.env.VITE_BASE_URL + "alumni/all");
+      setAlumni(alumni.data.filter((alumnus) => !alumnus.isVerified));
     };
+
     const verifyAdmin = async () => {
       const email = localStorage.getItem("email");
-      const res = await axios.post(
-        import.meta.env.VITE_BASE_URL + "admin/verify",
-        {
-          email: email,
-        }
-      );
-      console.log(res);
-      console.log("working");
+      const res = await axios.post(import.meta.env.VITE_BASE_URL + "admin/verify", {
+        email: email,
+      });
       if (res.data.isAdmin === false) {
         navigate("/login");
       }
     };
+
     verifyAdmin();
     getAlumni();
-  }, [verified]);
+  }, [verified, navigate]);
 
   const handleAccept = async (id) => {
-    setVerified(true);
-
-    const res = await axios.post(
-      import.meta.env.VITE_BASE_URL + "alumni/update",
-      {
-        id,
+    const email = localStorage.getItem("email");
+    if (!email) {
+      console.error("Error approving alumni: Email is missing from localStorage");
+      return;
+    }
+  
+    try {
+      setVerified(true); // Disable the button during the request
+  
+      const res = await axios.post(import.meta.env.VITE_BASE_URL + "alumni/update", {
+        email: email,  // Include email if needed for logging or notifications
+        id: id,        // Make sure to include the ID of the alumni being approved
         isVerified: true,
-      }
-    );
-    setVerified(false);
-
-    console.log(res);
+      });
+  
+      console.log(res.data); // Log the server's response after approval
+  
+      // Remove the approved alumni from the list
+      setAlumni(alumni.filter((alumnus) => alumnus.id !== id));
+  
+      setVerified(false); // Re-enable the button
+    } catch (error) {
+      console.error("Error approving alumni:", error.response?.data || error.message); // Show the error
+      setVerified(false); // Re-enable the button in case of error
+    }
   };
 
-  // const handleReject = async (id) => {
-  //   const res = await axios.post(
-  //     import.meta.env.VITE_BASE_URL + "alumni/update",
-  //     {
-  //       id,
-  //       verified: false,
-  //     }
-  //   );
-  //   console.log(res);
-  //   setRejected(true);
-  // };
+
+  
 
   return (
     <div className="flex flex-col min-h-dvh">
@@ -115,20 +110,10 @@ const AlumniApprovalPage = () => {
                   <div className="grid gap-1">
                     <div className="text-lg font-medium">{alumnus.name}</div>
                     <div className="text-sm text-muted-foreground">
-                      Batch: {alumnus.batch}, Roll: {alumnus.rollNumber},
-                      department:{alumnus.department}
+                      Batch: {alumnus.batch}, Roll: {alumnus.rollNumber}, department: {alumnus.department}
                     </div>
                   </div>
                   <div className="flex gap-2">
-                    {/*<Button
-                      className="bg-destructive"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleReject(alumnus.id)}
-                    >
-                      Reject
-                    </Button>*/}
-
                     <Button
                       className="bg-primary"
                       size="sm"

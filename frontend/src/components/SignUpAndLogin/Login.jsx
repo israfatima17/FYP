@@ -61,88 +61,96 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-sky-500 to-indigo-500"> {/* Gradient background */}
-  <Card className="p-8 max-w-lg w-full rounded-lg shadow-lg bg-white"> {/* Main card */}
-    <div className="text-center mb-6">
-      <h2 className="text-xl font-semibold text-gray-800 mb-2">
-        Log in to our Alumni Network
-      </h2>
-      <p className="text-sm text-gray-600 mb-4">
-        Connect with fellow alumni, access exclusive resources, and stay up-to-date on alumni events.
-      </p>
-      <h3 className="text-base font-semibold text-gray-700 mb-2">
-        Login Benefits:
-      </h3>
-      <ul className="text-sm text-gray-600 list-disc list-inside mb-6 space-y-1">
-        <li>Update your profile and contact information</li>
-        <li>Find classmates and colleagues</li>
-        <li>Network with other alumni professionals</li>
-        <li>Participate in online discussions and forums</li>
-        <li>Access exclusive alumni events and discounts</li>
-      </ul>
-    </div>
-
-    <h1 className="text-2xl font-bold text-center mb-4">Login</h1>
-    <p className="text-sm text-gray-600 text-center mb-6">
-      Enter your registered email and password to sign in.
-    </p>
-
-    <div className="space-y-4">
-      <div className="space-y-2">
-        <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-          Email Address
-        </Label>
-        <TextInput
-          id="email"
-          type="email"
-          placeholder="your.email@example.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="border border-gray-300 rounded-lg p-2.5 w-full"
-        />
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">
+    <Card className="p-8 max-w-md w-full rounded-2xl shadow-2xl bg-white">
+      <div className="text-center mb-6">
+       
+        <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
+          Welcome Back, Alumni!
+        </h2>
+        <p className="text-sm text-gray-600 mb-4">
+          Stay connected with your alumni network, access resources, and grow
+          together.
+        </p>
       </div>
-      <div className="relative space-y-2">
-        <Label htmlFor="password" className="text-sm font-medium text-gray-700">
-          Password
-        </Label>
-        <TextInput
-          id="password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="border border-gray-300 rounded-lg p-2.5 w-full pr-10"
-        />
-        <button
-          type="button"
-          className="absolute inset-y-0 right-0 flex items-center px-3"
-          onClick={() => setShowPassword(!showPassword)}
+  
+      <h1 className="text-lg font-bold text-gray-700 mb-4">Login to Continue</h1>
+  
+      <div className="space-y-4">
+        {/* Email Field */}
+        <div>
+          <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            Email Address
+          </Label>
+          <TextInput
+            id="email"
+            type="email"
+            placeholder="your.email@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className="mt-1 w-full border-gray-300 rounded-lg px-4 py-2 text-gray-800 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          />
+        </div>
+  
+        {/* Password Field */}
+        <div className="relative">
+          <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+            Password
+          </Label>
+          <TextInput
+            id="password"
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="mt-1 w-full border-gray-300 rounded-lg px-4 py-2 pr-12 text-gray-800 focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? (
+              <EyeSlashIcon className="w-5 h-5" />
+            ) : (
+              <EyeIcon className="w-5 h-5" />
+            )}
+          </button>
+        </div>
+      </div>
+  
+      {/* Buttons */}
+      <div className="mt-6 space-y-4">
+        <Button
+          className="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold py-2.5 rounded-lg hover:from-indigo-600 hover:to-purple-600 shadow-md transition-all"
+          onClick={handleLogin}
         >
-          {showPassword ? (
-            <EyeSlashIcon   
- className="w-5 h-5 text-gray-500" />
-          ) : (
-            <EyeIcon className="w-5 h-5 text-gray-500" />
-          )}
-        </button>
+          Login
+        </Button>
+        <Button
+          onClick={handleGoogleSignIn}
+          className="w-full flex items-center justify-center bg-white text-gray-700 border border-gray-300 py-2.5 rounded-lg hover:bg-gray-100 shadow-sm"
+        >
+          <FcGoogle className="w-5 h-5 mr-2" />
+          Sign in with Google
+        </Button>
       </div>
-    </div>
-
-    <div className="mt-6 space-y-4">
-      <Button className="w-full bg-indigo-600 text-white font-semibold py-2.5 rounded-lg" onClick={handleLogin}>
-        Login
-      </Button>
-      <Button
-        onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center bg-white text-gray-700 border border-gray-300 py-2.5 rounded-lg hover:bg-gray-100"
-      >
-        <FcGoogle className="w-5 h-5 mr-2" />
-        Sign in with Google
-      </Button>
-    </div>
-  </Card>
-</div>
+  
+      {/* Footer */}
+      <div className="mt-6 text-center">
+        <p className="text-sm text-gray-600">
+          Don't have an account?{" "}
+          <a
+            href="/register"
+            className="text-indigo-600 font-semibold hover:underline"
+          >
+            Register Here
+          </a>
+        </p>
+      </div>
+    </Card>
+  </div>
   );
 };
 
